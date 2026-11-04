@@ -2,387 +2,376 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101c35">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Мой Банк">
-<title>Мой Банк</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2f8f4">
+<title>Мой банк</title>
 <style>
-:root {
-  --bg:#f2f5fa;--card:#fff;--text:#17243c;--muted:#8190a8;
-  --blue:#2458d3;--green:#16a477;--red:#e45d68;
-  --line:#e8edf5;--nav:#fff;
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
-font-family:Arial,sans-serif;padding-bottom:85px}
-header{background:#101c35;color:white;padding:22px 18px 25px;
-border-radius:0 0 25px 25px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:20px;font-weight:800;letter-spacing:.5px}
-.demo{font-size:10px;background:#263957;padding:7px 10px;border-radius:20px;color:#b8caff}
-.greeting{font-size:13px;color:#aebbd0;margin-top:25px}
-.balance-label{font-size:13px;color:#aebbd0;margin-top:9px}
-.balance{font-size:36px;font-weight:800;margin-top:5px}
-.balance small{font-size:19px}
-.balance-actions{display:flex;gap:10px;margin-top:20px}
-.action{flex:1;border:0;border-radius:13px;padding:13px 8px;
-font-weight:bold;background:#263957;color:white;font-size:13px}
-.action.primary{background:#fff;color:#17366f}
-main{padding:18px;max-width:650px;margin:auto}
-.section-title{font-size:18px;font-weight:800;margin:23px 0 13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.card{background:var(--card);border-radius:17px;padding:16px;
-box-shadow:0 3px 14px #17243c08}
-.stat-label{font-size:12px;color:var(--muted)}
-.stat-value{font-size:19px;font-weight:800;margin-top:8px}
-.stat-icon{font-size:21px;margin-bottom:9px}
-.bankcard{background:linear-gradient(130deg,#17346b,#3269d7);
-color:white;border-radius:19px;padding:19px;min-height:145px;
-position:relative;overflow:hidden}
-.bankcard:after{content:"";position:absolute;width:150px;height:150px;
-border:25px solid #ffffff12;border-radius:50%;right:-35px;top:30px}
-.bankcard .chip{font-size:23px}
-.bankcard .number{letter-spacing:3px;margin-top:22px;font-size:15px}
-.bankcard .cardbottom{display:flex;justify-content:space-between;
-font-size:11px;margin-top:13px;color:#dbe6ff}
-.account{display:flex;align-items:center;gap:12px;padding:14px 0;
-border-bottom:1px solid var(--line)}
-.account:last-child{border:0}
-.circle{width:42px;height:42px;border-radius:14px;background:#edf2ff;
-display:grid;place-items:center;font-size:20px}
-.account-info{flex:1}
-.account-info b{font-size:14px}
-.account-info small{display:block;color:var(--muted);margin-top:5px}
-.account-amount{font-weight:800;font-size:14px}
-.tabs{display:flex;gap:7px;overflow:auto;margin:15px 0}
-.tab{border:0;background:#e7ecf5;color:#53627a;padding:10px 14px;
-border-radius:20px;white-space:nowrap;font-weight:bold}
-.tab.active{background:#2458d3;color:white}
+body{margin:0;background:#f2f8f4;color:#20352b;font-family:Arial,sans-serif}
+.app{max-width:620px;margin:auto;padding:18px 15px 95px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.logo{font-size:22px;font-weight:900;color:#183b2d}
+.logo span{color:#20a66a}
+.pill{background:#e1f4e9;color:#238354;padding:9px 12px;border-radius:20px;font-size:12px}
+h1{font-size:25px;margin:0 0 5px}
+.muted{color:#718278;font-size:13px}
+.balance{margin-top:18px;padding:22px;border-radius:24px;background:linear-gradient(135deg,#174a36,#25875b);color:white}
+.amount{font-size:36px;font-weight:800;margin:8px 0 17px}
+.balance-row{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:17px 0 23px}
+.action{border:0;border-radius:18px;padding:17px 10px;background:white;text-align:left;cursor:pointer;color:#20352b}
+.action .symbol{font-size:25px;display:block;margin-bottom:9px}
+.action strong{display:block;font-size:15px}
+.action small{display:block;color:#718278;font-size:11px;margin-top:4px}
+.section-title{font-size:18px;font-weight:800;margin:22px 2px 11px}
+.card{background:white;border-radius:19px;padding:16px;margin-bottom:11px}
+.goal-head,.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.goal-name{font-weight:800}
+.percent{font-weight:800;color:#20a66a}
+.track{height:10px;background:#edf3ef;border-radius:20px;margin:13px 0 8px;overflow:hidden}
+.fill{height:100%;background:#20a66a;border-radius:20px;width:0}
+.goal-foot{display:flex;justify-content:space-between;color:#718278;font-size:12px}
+.tx{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #e7efe9}
+.tx:last-child{border:0}
+.tx-icon{width:39px;height:39px;border-radius:13px;background:#f0f6f2;display:grid;place-items:center;font-size:19px}
+.tx-info{flex:1;min-width:0}
+.tx-title{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.tx-date{font-size:11px;color:#718278;margin-top:4px}
+.tx-amount{font-weight:800;white-space:nowrap}
+.positive{color:#15965b}.negative{color:#d65c55}
+.del{border:0;background:none;color:#a3afa8;font-size:19px;cursor:pointer}
+.empty{text-align:center;padding:20px;color:#718278;font-size:13px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(620px,100%);display:flex;justify-content:space-around;background:#ffffffed;border-top:1px solid #e7efe9;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:4}
+.nav button{border:0;background:none;color:#849188;font-size:11px;font-weight:700;cursor:pointer}
+.nav button span{display:block;font-size:20px;margin-bottom:3px}
+.nav button.active{color:#20a66a}
 .page{display:none}.page.active{display:block}
-button{cursor:pointer}
-.primary-btn{background:var(--blue);color:white;border:0;border-radius:12px;
-padding:13px 16px;font-weight:bold;width:100%;margin-top:12px}
-.secondary-btn{background:#edf2ff;color:#2458d3;border:0;
-border-radius:10px;padding:10px 12px;font-weight:bold}
-input,select{width:100%;padding:13px;border:1px solid var(--line);
-border-radius:11px;background:white;color:var(--text);font-size:15px;
-margin:7px 0 13px;outline:none}
-label{font-size:12px;color:var(--muted);font-weight:bold}
-.offer{border:1px solid var(--line);margin-bottom:12px}
-.offer-rate{font-size:27px;color:var(--green);font-weight:800}
-.offer small{color:var(--muted)}
-.progress{height:8px;background:#e9edf4;border-radius:10px;margin:12px 0}
-.progress div{height:100%;background:var(--green);border-radius:10px}
-.transaction{display:flex;gap:11px;align-items:center;padding:13px 0;
-border-bottom:1px solid var(--line)}
-.transaction .details{flex:1}
-.transaction b{font-size:13px}
-.transaction small{display:block;color:var(--muted);margin-top:5px}
-.amount{font-weight:800;font-size:14px}
-.income{color:var(--green)}.expense{color:var(--red)}
-.bottomnav{position:fixed;bottom:0;left:0;right:0;background:var(--nav);
-display:flex;justify-content:space-around;padding:10px 2px 12px;
-box-shadow:0 -5px 20px #17243c0c;z-index:5}
-.navbtn{border:0;background:none;color:#8a96aa;font-size:10px;
-display:flex;flex-direction:column;align-items:center;gap:5px}
-.navbtn span{font-size:21px}
-.navbtn.active{color:var(--blue);font-weight:bold}
-.modal{display:none;position:fixed;inset:0;background:#07132999;
-z-index:10;align-items:flex-end;justify-content:center}
+.primary{width:100%;border:0;border-radius:13px;background:#20a66a;color:white;padding:14px;font-weight:800;font-size:15px;cursor:pointer}
+label{display:block;font-weight:700;font-size:13px;margin:13px 0 6px}
+input{width:100%;padding:13px;border:1px solid #dce8df;border-radius:12px;background:#fbfdfb;font-size:16px;outline:none}
+.modal{display:none;position:fixed;inset:0;background:#10281d88;z-index:8;align-items:flex-end;justify-content:center;padding:10px}
 .modal.show{display:flex}
-.modalbox{background:white;width:100%;max-width:600px;padding:23px;
-border-radius:23px 23px 0 0;max-height:88vh;overflow:auto}
-.modalhead{display:flex;justify-content:space-between;align-items:center;
-font-size:19px;font-weight:800;margin-bottom:18px}
-.close{border:0;background:#edf1f7;border-radius:50%;width:32px;height:32px}
-.empty{text-align:center;color:var(--muted);padding:25px 5px;font-size:13px}
-.notice{background:#fff7df;color:#896c20;padding:12px;border-radius:12px;
-font-size:11px;line-height:1.5;margin-top:14px}
-footer{text-align:center;color:#9ba6b8;font-size:10px;padding:25px}
-@media(min-width:600px){main{padding:24px}header{padding-left:max(22px,calc((100% - 610px)/2));padding-right:max(22px,calc((100% - 610px)/2))}}
+.dialog{width:min(100%,500px);background:white;border-radius:23px;padding:21px;max-height:90vh;overflow:auto}
+.dialog-head{display:flex;justify-content:space-between;align-items:center}
+.dialog h2{margin:0;font-size:20px}
+.close{border:0;border-radius:50%;width:34px;height:34px;background:#f0f5f1;font-size:20px;cursor:pointer}
+.note{font-size:12px;line-height:1.5;color:#718278;margin-top:14px}
+@media(min-width:560px){.modal{align-items:center}.dialog{border-radius:23px}}
 </style>
 </head>
 <body>
 
+<div class="app">
 <header>
-  <div class="top">
-    <div class="logo">◈ МОЙ БАНК</div>
-    <div class="demo">ДЕМО-РЕЖИМ</div>
-  </div>
-  <div class="greeting">Добро пожаловать!</div>
-  <div class="balance-label">Общий баланс всех счетов</div>
-  <div class="balance" id="totalBalance">0,00 <small>₽</small></div>
-  <div class="balance-actions">
-    <button class="action primary" onclick="openModal('transferModal')">↗ Перевести</button>
-    <button class="action" onclick="openModal('incomeModal')">＋ Пополнить</button>
-  </div>
+ <div class="logo">МОЙ <span>БАНК</span></div>
+ <div class="pill">🐻 Мой денежный помощник</div>
 </header>
 
-<main>
-<div class="tabs">
-  <button class="tab active" onclick="showPage('home',this)">Главная</button>
-  <button class="tab" onclick="showPage('accounts',this)">Счета</button>
-  <button class="tab" onclick="showPage('deposits',this)">Вклады</button>
-  <button class="tab" onclick="showPage('savings',this)">Накопления</button>
-  <button class="tab" onclick="showPage('history',this)">История</button>
+<section id="home" class="page active">
+<h1>Привет! 👋</h1>
+<div class="muted">Давай посмотрим, сколько у тебя денег</div>
+
+<div class="balance">
+ <small>Всего у меня</small>
+ <div class="amount" id="total">0 ₽</div>
+ <div class="balance-row">
+  <span>💵 Свободно: <b id="free">0 ₽</b></span>
+  <span>🐷 В копилке: <b id="saved">0 ₽</b></span>
+ </div>
 </div>
 
-<section class="page active" id="home">
-  <div class="grid">
-    <div class="card"><div class="stat-icon">💳</div>
-      <div class="stat-label">Основной счёт</div>
-      <div class="stat-value" id="mainStat">0 ₽</div></div>
-    <div class="card"><div class="stat-icon">🏦</div>
-      <div class="stat-label">Во вкладах</div>
-      <div class="stat-value" id="depositStat">0 ₽</div></div>
-    <div class="card"><div class="stat-icon">🎯</div>
-      <div class="stat-label">В накоплениях</div>
-      <div class="stat-value" id="savingStat">0 ₽</div></div>
-    <div class="card"><div class="stat-icon">📊</div>
-      <div class="stat-label">Операций</div>
-      <div class="stat-value" id="operationsStat">0</div></div>
-  </div>
+<div class="actions">
+ <button class="action" onclick="openForm('income')">
+  <span class="symbol">🎁</span>
+  <strong>Получить деньги</strong>
+  <small>От кого получил?</small>
+ </button>
+ <button class="action" onclick="openForm('expense')">
+  <span class="symbol">🛍️</span>
+  <strong>Потратить деньги</strong>
+  <small>На что потратил?</small>
+ </button>
+ <button class="action" onclick="openForm('save')">
+  <span class="symbol">🐷</span>
+  <strong>Отложить</strong>
+  <small>В свою копилку</small>
+ </button>
+ <button class="action" onclick="openForm('goal')">
+  <span class="symbol">🎯</span>
+  <strong>Моя цель</strong>
+  <small>На что коплю?</small>
+ </button>
+</div>
 
-  <div class="section-title">Моя карта</div>
-  <div class="bankcard">
-    <div class="top"><b>МОЙ БАНК</b><span class="chip">▰</span></div>
-    <div class="number">•••• &nbsp; •••• &nbsp; •••• &nbsp; 2048</div>
-    <div class="cardbottom"><span>ВИРТУАЛЬНАЯ КАРТА</span><b>МИР • DEMO</b></div>
-  </div>
+<div class="section-title">🎯 Моя большая мечта</div>
+<div class="card">
+ <div class="goal-head">
+  <div class="goal-name" id="goalName">Пока нет цели</div>
+  <div class="percent" id="percent">0%</div>
+ </div>
+ <div class="track"><div class="fill" id="bar"></div></div>
+ <div class="goal-foot">
+  <span id="goalSaved">Накоплено: 0 ₽</span>
+  <span id="goalTarget">Нужно: 0 ₽</span>
+ </div>
+</div>
 
-  <div class="section-title">Мои счета</div>
-  <div class="card">
-    <div class="account"><div class="circle">💳</div>
-      <div class="account-info"><b>Основной счёт</b><small>Для ежедневных операций</small></div>
-      <div class="account-amount" id="homeMain">0 ₽</div></div>
-    <div class="account"><div class="circle">🐷</div>
-      <div class="account-info"><b>Накопительный счёт</b><small>Деньги на цели</small></div>
-      <div class="account-amount" id="homeSaving">0 ₽</div></div>
-  </div>
-
-  <div class="section-title">Последние операции</div>
-  <div class="card" id="recentTransactions"></div>
+<div class="section-title">📖 Последние операции</div>
+<div class="card" id="recent"></div>
 </section>
 
-<section class="page" id="accounts">
-  <div class="section-title">Мои счета и карты</div>
-  <div class="card">
-    <div class="account"><div class="circle">💳</div>
-      <div class="account-info"><b>Основной счёт</b><small>Доступные средства</small></div>
-      <div class="account-amount" id="accountMain">0 ₽</div></div>
-    <div class="account"><div class="circle">🐷</div>
-      <div class="account-info"><b>Накопительный счёт</b><small>Отложенные средства</small></div>
-      <div class="account-amount" id="accountSaving">0 ₽</div></div>
-    <div class="account"><div class="circle">🏦</div>
-      <div class="account-info"><b>Депозитные вклады</b><small>Срочные вклады</small></div>
-      <div class="account-amount" id="accountDeposit">0 ₽</div></div>
-  </div>
-  <div class="section-title">Действия</div>
-  <button class="primary-btn" onclick="openModal('incomeModal')">＋ Пополнить основной счёт</button>
-  <button class="primary-btn" onclick="openModal('transferModal')">↗ Перевод между счетами</button>
-  <div class="notice">Все счета и карты виртуальные. Приложение не подключено к банковской платёжной системе.</div>
+<section id="history" class="page">
+<h1>Мои операции 📖</h1>
+<div class="muted">Откуда пришли и куда ушли деньги</div>
+<div class="card" id="all" style="margin-top:18px"></div>
 </section>
 
-<section class="page" id="deposits">
-  <div class="section-title">Вклады и предложения</div>
-  <div class="notice">Ставки и продукты ниже являются демонстрационными условиями вымышленного банка.</div>
-  <div id="offers"></div>
-  <div class="section-title">Мои открытые вклады</div>
-  <div id="myDeposits"></div>
+<section id="settings" class="page">
+<h1>Настройки ⚙️</h1>
+<div class="muted">Начальная сумма денег</div>
+<div class="card" style="margin-top:18px">
+ <label for="initial">Сколько денег у меня сейчас? (₽)</label>
+ <input id="initial" type="number" min="0" step="0.01">
+ <button class="primary" style="margin-top:14px" onclick="setBalance()">Сохранить сумму</button>
+ <p class="note">Это приложение помогает вести учёт карманных денег. Оно не подключается к настоящему банку.</p>
+</div>
 </section>
+</div>
 
-<section class="page" id="savings">
-  <div class="section-title">Мои накопления</div>
-  <div class="card">
-    <label>Название цели</label>
-    <input id="goalName" placeholder="Например, новый телефон">
-    <label>Сколько нужно накопить (₽)</label>
-    <input id="goalTarget" type="number" min="1" placeholder="30000">
-    <button class="primary-btn" onclick="saveGoal()">Сохранить цель</button>
-  </div>
-  <div id="goalDisplay"></div>
-  <button class="primary-btn" onclick="openModal('saveModal')">＋ Отложить деньги</button>
-</section>
-
-<section class="page" id="history">
-  <div class="section-title">История операций</div>
-  <div class="card" id="allTransactions"></div>
-</section>
-<footer>МОЙ БАНК · ДЕМОНСТРАЦИОННОЕ ПРИЛОЖЕНИЕ<br>Виртуальные средства · Не является банком</footer>
-</main>
-
-<nav class="bottomnav">
-  <button class="navbtn active" onclick="navTo('home',this)"><span>⌂</span>Главная</button>
-  <button class="navbtn" onclick="navTo('accounts',this)"><span>▣</span>Счета</button>
-  <button class="navbtn" onclick="navTo('deposits',this)"><span>▤</span>Вклады</button>
-  <button class="navbtn" onclick="navTo('savings',this)"><span>◎</span>Цели</button>
-  <button class="navbtn" onclick="navTo('history',this)"><span>☷</span>История</button>
+<nav class="nav">
+<button class="active" data-page="home" onclick="go('home')"><span>🏠</span>Главная</button>
+<button data-page="history" onclick="go('history')"><span>📖</span>История</button>
+<button data-page="settings" onclick="go('settings')"><span>⚙️</span>Настройки</button>
 </nav>
 
-<div class="modal" id="incomeModal">
-<div class="modalbox"><div class="modalhead">Пополнение счёта <button class="close" onclick="closeModal('incomeModal')">✕</button></div>
-<label>Сумма пополнения (₽)</label><input id="incomeAmount" type="number" min="1" placeholder="Например, 5000">
-<label>Откуда поступили деньги?</label><select id="incomeSource"><option>Пополнение</option><option>Карманные деньги</option><option>Подарок</option><option>Другой доход</option></select>
-<button class="primary-btn" onclick="addIncome()">Пополнить</button></div></div>
-
-<div class="modal" id="transferModal">
-<div class="modalbox"><div class="modalhead">Перевод средств <button class="close" onclick="closeModal('transferModal')">✕</button></div>
-<label>Откуда</label><select id="transferFrom"><option value="main">Основной счёт</option><option value="saving">Накопительный счёт</option></select>
-<label>Куда</label><select id="transferTo"><option value="saving">Накопительный счёт</option><option value="main">Основной счёт</option></select>
-<label>Сумма (₽)</label><input id="transferAmount" type="number" min="1" placeholder="1000">
-<button class="primary-btn" onclick="transfer()">Перевести</button></div></div>
-
-<div class="modal" id="saveModal">
-<div class="modalbox"><div class="modalhead">Пополнить накопления <button class="close" onclick="closeModal('saveModal')">✕</button></div>
-<label>Сумма (₽)</label><input id="saveAmount" type="number" min="1" placeholder="1000">
-<button class="primary-btn" onclick="saveMoney()">Отложить</button></div></div>
-
-<div class="modal" id="depositModal">
-<div class="modalbox"><div class="modalhead">Открытие вклада <button class="close" onclick="closeModal('depositModal')">✕</button></div>
-<div id="depositOfferInfo"></div>
-<label>Сумма вклада (₽)</label><input id="depositAmount" type="number" min="1" placeholder="10000">
-<label>Дата открытия</label><input id="depositDate" type="date">
-<button class="primary-btn" onclick="openDeposit()">Открыть вклад</button></div></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeForm()">
+<div class="dialog">
+ <div class="dialog-head">
+  <h2 id="formTitle">Операция</h2>
+  <button class="close" onclick="closeForm()">×</button>
+ </div>
+ <div class="muted" id="formHint" style="margin-top:6px"></div>
+ <div id="fields"></div>
+ <button class="primary" id="submit" style="margin-top:18px">Готово</button>
+</div>
+</div>
 
 <script>
-const KEY="myBankDemo_v1";
-let data=JSON.parse(localStorage.getItem(KEY)||"null")||{
- main:0,saving:0,goal:{name:"",target:0},deposits:[],transactions:[]
+const STORAGE_KEY='myBankDemo_v1';
+const blank={
+ main:0,
+ saving:0,
+ goal:{name:'',target:0},
+ transactions:[]
 };
-let selectedOffer=0;
-const offers=[
- {name:"Накопительный",rate:4.5,months:0,description:"Без ограничения срока. Проценты рассчитываются ежедневно.",type:"daily"},
- {name:"Срочный на 3 месяца",rate:5,months:3,description:"Проценты в конце срока.",type:"simple"},
- {name:"Срочный на 6 месяцев",rate:7,months:6,description:"Проценты в конце срока.",type:"simple"},
- {name:"Срочный на 12 месяцев",rate:9,months:12,description:"Капитализация процентов.",type:"compound"}
-];
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
-function money(n){return Number(n||0).toLocaleString("ru-RU",{minimumFractionDigits:2,maximumFractionDigits:2})+" ₽"}
-function dateNow(){return new Date().toISOString().slice(0,10)}
-function log(type,title,amount,account){
- data.transactions.unshift({id:Date.now()+Math.random(),type,title,amount,account,date:new Date().toLocaleString("ru-RU")});
+let bank;
+
+function safeLoad(){
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  const old=raw?JSON.parse(raw):null;
+  bank=old&&typeof old==='object'
+   ?{...blank,...old}
+   :JSON.parse(JSON.stringify(blank));
+ }catch(e){
+  bank=JSON.parse(JSON.stringify(blank));
+ }
+ bank.main=Number(bank.main)||0;
+ bank.saving=Number(bank.saving)||0;
+ if(!bank.goal||typeof bank.goal!=='object')bank.goal={name:'',target:0};
+ if(!Array.isArray(bank.transactions))bank.transactions=[];
 }
-function depositTotal(){return data.deposits.reduce((s,d)=>s+d.amount,0)}
-function accrued(d){
- let start=new Date(d.date+"T00:00:00"),now=new Date();
- let days=Math.max(0,Math.floor((now-start)/86400000));
- let termDays=d.months?Math.round(d.months*30.4375):days;
- days=Math.min(days,termDays);
- let rate=d.rate/100;
- if(d.type==="compound")return d.amount*(Math.pow(1+rate/365,days)-1);
- return d.amount*rate*days/365;
+
+function save(){
+ try{
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(bank));
+ }catch(e){
+  alert('Не удалось сохранить данные. Проверь настройки браузера.');
+ }
+ draw();
 }
-function expected(d){
- let days=d.months?Math.round(d.months*30.4375):365;
- if(d.type==="compound")return d.amount*(Math.pow(1+d.rate/365,days)-1);
- return d.amount*d.rate*days/365;
+
+function rub(n){
+ return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2})
+ .format(Number(n)||0)+' ₽';
 }
-function showPage(id,button){
- document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
- if(button)button.classList.add("active");
+
+function esc(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
 }
-function navTo(id,button){
- showPage(id);
- document.querySelectorAll(".navbtn").forEach(x=>x.classList.remove("active"));
- button.classList.add("active");
- document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.textContent.toLowerCase().includes(id==="home"?"главная":id==="accounts"?"счета":id==="deposits"?"вклады":id==="savings"?"накопления":"история")));
+
+function draw(){
+ const target=Number(bank.goal.target)||0;
+ const pct=target>0?Math.min(100,Math.round(bank.saving/target*100)):0;
+
+ document.getElementById('total').textContent=rub(bank.main+bank.saving);
+ document.getElementById('free').textContent=rub(bank.main);
+ document.getElementById('saved').textContent=rub(bank.saving);
+
+ document.getElementById('goalName').textContent=bank.goal.name||'Пока нет цели';
+ document.getElementById('percent').textContent=pct+'%';
+ document.getElementById('bar').style.width=pct+'%';
+ document.getElementById('goalSaved').textContent='Накоплено: '+rub(bank.saving);
+ document.getElementById('goalTarget').textContent='Нужно: '+rub(target);
+
+ document.getElementById('initial').value=bank.main;
+
+ const sorted=[...bank.transactions].sort((a,b)=>b.id-a.id);
+ document.getElementById('recent').innerHTML=txList(sorted.slice(0,4),false);
+ document.getElementById('all').innerHTML=txList(sorted,true);
 }
-function openModal(id){document.getElementById(id).classList.add("show")}
-function closeModal(id){document.getElementById(id).classList.remove("show")}
-function addIncome(){
- let a=Number(document.getElementById("incomeAmount").value);
- if(a<=0)return alert("Введите сумму больше нуля");
- let source=document.getElementById("incomeSource").value;
- data.main+=a;log("income",source,a,"main");document.getElementById("incomeAmount").value="";
- closeModal("incomeModal");save();
+
+function txList(list,del){
+ if(!list.length)return '<div class="empty">Пока операций нет.<br>Добавь первое поступление! 🌱</div>';
+
+ return list.map(t=>`
+ <div class="tx">
+  <div class="tx-icon">${t.type==='income'?'🎁':t.type==='expense'?'🛍️':'🐷'}</div>
+  <div class="tx-info">
+   <div class="tx-title">${esc(t.title)}</div>
+   <div class="tx-date">${esc(t.date||'')}</div>
+  </div>
+  <div class="tx-amount ${t.type==='income'?'positive':t.type==='expense'?'negative':''}">
+   ${t.type==='income'?'+':t.type==='expense'?'−':'↗'}${rub(t.amount)}
+  </div>
+  ${del?`<button class="del" onclick="removeTx('${t.id}')">×</button>`:''}
+ </div>`).join('');
 }
-function transfer(){
- let from=document.getElementById("transferFrom").value,to=document.getElementById("transferTo").value;
- let a=Number(document.getElementById("transferAmount").value);
- if(from===to)return alert("Выберите разные счета");
- if(a<=0)return alert("Введите сумму");
- if(data[from]<a)return alert("Недостаточно средств");
- data[from]-=a;data[to]+=a;
- log("transfer","Перевод: "+(from==="main"?"основной":"накопительный")+" → "+(to==="main"?"основной":"накопительный"),a,from);
- document.getElementById("transferAmount").value="";
- closeModal("transferModal");save();
+
+function go(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo(0,0);
 }
-function saveMoney(){
- let a=Number(document.getElementById("saveAmount").value);
- if(a<=0)return alert("Введите сумму");
- if(data.main<a)return alert("Недостаточно денег на основном счёте");
- data.main-=a;data.saving+=a;log("transfer","Пополнение накоплений",a,"saving");
- document.getElementById("saveAmount").value="";closeModal("saveModal");save();
+
+let current='';
+
+function openForm(type){
+ current=type;
+ const titles={
+  income:'🎁 Получить деньги',
+  expense:'🛍️ Потратить деньги',
+  save:'🐷 Отложить в копилку',
+  goal:'🎯 Моя цель'
+ };
+ const hints={
+  income:'Запиши сумму и от кого ты её получил.',
+  expense:'Запиши сумму и на что или кому отдал деньги.',
+  save:'Переведи часть свободных денег в копилку.',
+  goal:'Напиши, на что хочешь накопить.'
+ };
+
+ document.getElementById('formTitle').textContent=titles[type];
+ document.getElementById('formHint').textContent=hints[type];
+
+ if(type==='goal'){
+  document.getElementById('fields').innerHTML=`
+   <label>Моя мечта</label>
+   <input id="fTitle" maxlength="45" placeholder="Например, велосипед" value="${esc(bank.goal.name||'')}">
+   <label>Сколько нужно (₽)</label>
+   <input id="fAmount" type="number" min="0.01" step="0.01" placeholder="Например, 5000" value="${bank.goal.target||''}">
+  `;
+ }else{
+  const label=type==='income'?'От кого деньги?':type==='expense'?'На что или кому?':'Комментарий (необязательно)';
+  const placeholder=type==='income'?'Например, от мамы':type==='expense'?'Например, игрушка':'Например, на велосипед';
+
+  document.getElementById('fields').innerHTML=`
+   <label>${label}</label>
+   <input id="fTitle" maxlength="55" placeholder="${placeholder}">
+   <label>Сумма (₽)</label>
+   <input id="fAmount" type="number" min="0.01" step="0.01" placeholder="0">
+  `;
+ }
+
+ document.getElementById('submit').onclick=submitForm;
+ document.getElementById('modal').classList.add('show');
 }
-function saveGoal(){
- let name=document.getElementById("goalName").value.trim(),target=Number(document.getElementById("goalTarget").value);
- if(!name||target<=0)return alert("Заполните название и сумму цели");
- data.goal={name,target};save();alert("Цель сохранена");
+
+function closeForm(){
+ document.getElementById('modal').classList.remove('show');
 }
-function chooseOffer(i){
- selectedOffer=i;
- let o=offers[i];
- document.getElementById("depositOfferInfo").innerHTML="<b>"+o.name+"</b><div class='offer-rate'>"+o.rate+"% годовых</div><small>"+o.description+"</small>";
- document.getElementById("depositDate").value=dateNow();
- openModal("depositModal");
+
+function submitForm(){
+ const title=document.getElementById('fTitle').value.trim();
+ const amount=Number(document.getElementById('fAmount').value);
+
+ if(current==='goal'){
+  if(!title||!Number.isFinite(amount)||amount<=0){
+   alert('Напиши цель и сумму больше нуля.');return;
+  }
+  bank.goal={name:title,target:amount};
+  save();closeForm();return;
+ }
+
+ if(!Number.isFinite(amount)||amount<=0){
+  alert('Введи сумму больше нуля.');return;
+ }
+
+ if(current!=='save'&&!title){
+  alert('Напиши, от кого деньги или на что потратил.');return;
+ }
+
+ if(current==='income'){
+  bank.main+=amount;
+  add('income','От: '+title,amount);
+ }
+
+ if(current==='expense'){
+  if(amount>bank.main){alert('Свободных денег пока не хватает.');return;}
+  bank.main-=amount;
+  add('expense',title,amount);
+ }
+
+ if(current==='save'){
+  if(amount>bank.main){alert('Свободных денег в кошельке не хватает.');return;}
+  bank.main-=amount;
+  bank.saving+=amount;
+  add('save',title||'Пополнение копилки',amount);
+ }
+
+ save();closeForm();
 }
-function openDeposit(){
- let a=Number(document.getElementById("depositAmount").value),o=offers[selectedOffer];
- if(a<=0)return alert("Введите сумму вклада");
- if(data.main<a)return alert("Недостаточно средств на основном счёте");
- data.main-=a;
- data.deposits.push({id:Date.now(),name:o.name,amount:a,rate:o.rate,months:o.months,type:o.type,date:document.getElementById("depositDate").value||dateNow()});
- log("deposit","Открытие вклада: "+o.name,a,"deposit");
- document.getElementById("depositAmount").value="";
- closeModal("depositModal");save();
+
+function add(type,title,amount){
+ bank.transactions.push({
+  id:Date.now()+Math.random(),
+  type,title,amount,
+  date:new Date().toLocaleString('ru-RU')
+ });
 }
-function closeDeposit(id){
- let d=data.deposits.find(x=>x.id===id);if(!d)return;
- if(!confirm("Закрыть вклад и вернуть сумму с начисленными процентами?"))return;
- let earned=accrued(d),total=d.amount+earned;
- data.main+=total;
- data.deposits=data.deposits.filter(x=>x.id!==id);
- log("income","Закрытие вклада с процентами",total,"main");
+
+function removeTx(id){
+ const t=bank.transactions.find(x=>String(x.id)===String(id));
+ if(!t)return;
+ if(!confirm('Удалить операцию и вернуть деньги на баланс?'))return;
+
+ if(t.type==='income')bank.main-=Number(t.amount);
+ if(t.type==='expense')bank.main+=Number(t.amount);
+ if(t.type==='save'){
+  bank.main+=Number(t.amount);
+  bank.saving-=Number(t.amount);
+ }
+
+ bank.main=Math.max(0,bank.main);
+ bank.saving=Math.max(0,bank.saving);
+ bank.transactions=bank.transactions.filter(x=>String(x.id)!==String(id));
  save();
 }
-function transactionHTML(t){
- let sign=t.type==="income"?"+":t.type==="expense"?"−":t.type==="deposit"?"−":"↔";
- let cls=t.type==="income"?"income":t.type==="expense"?"expense":"";
- let icon=t.type==="income"?"↙":t.type==="deposit"?"🏦":t.type==="transfer"?"↔":"•";
- return `<div class="transaction"><div class="circle">${icon}</div><div class="details"><b>${escapeHTML(t.title)}</b><small>${t.date}</small></div><div class="amount ${cls}">${sign==="↔"?"":sign}${money(t.amount)}</div></div>`;
+
+function setBalance(){
+ const n=Number(document.getElementById('initial').value);
+ if(!Number.isFinite(n)||n<0){
+  alert('Введи корректную сумму.');return;
+ }
+ bank.main=n;
+ save();
+ alert('Баланс обновлён!');
 }
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function render(){
- let dep=depositTotal(),total=data.main+data.saving+dep;
- document.getElementById("totalBalance").innerHTML=money(total).replace(" ₽","")+" <small>₽</small>";
- ["mainStat","homeMain","accountMain"].forEach(id=>document.getElementById(id).textContent=money(data.main));
- ["savingStat","homeSaving","accountSaving"].forEach(id=>document.getElementById(id).textContent=money(data.saving));
- ["depositStat","accountDeposit"].forEach(id=>document.getElementById(id).textContent=money(dep));
- document.getElementById("operationsStat").textContent=data.transactions.length;
- document.getElementById("offers").innerHTML=offers.map((o,i)=>`<div class="card offer"><div class="stat-label">ДЕПОЗИТНОЕ ПРЕДЛОЖЕНИЕ</div><h3>${o.name}</h3><div class="offer-rate">${o.rate}%</div><small>Годовых · ${o.months?o.months+" мес.":"Без ограничения срока"}</small><p class="stat-label">${o.description}</p><button class="primary-btn" onclick="chooseOffer(${i})">Открыть вклад</button></div>`).join("");
- document.getElementById("myDeposits").innerHTML=data.deposits.length?data.deposits.map(d=>`<div class="card" style="margin-bottom:12px"><b>${escapeHTML(d.name)}</b><div class="offer-rate">${d.rate}% годовых</div><p class="stat-label">Вложено: ${money(d.amount)}</p><p class="stat-label">Уже начислено: ${money(accrued(d))}</p><p class="stat-label">Ожидаемый доход за срок: ${money(expected(d))}</p><p class="stat-label">Открыт: ${d.date}</p><button class="secondary-btn" onclick="closeDeposit(${d.id})">Закрыть вклад</button></div>`).join(""):"<div class='card empty'>У вас пока нет открытых вкладов</div>";
- document.getElementById("goalName").value=data.goal.name;
- document.getElementById("goalTarget").value=data.goal.target||"";
- let percent=data.goal.target?Math.min(100,data.saving/data.goal.target*100):0;
- document.getElementById("goalDisplay").innerHTML=data.goal.target?`<div class="card" style="margin-top:15px"><b>${escapeHTML(data.goal.name)}</b><h2>${money(data.saving)} / ${money(data.goal.target)}</h2><div class="progress"><div style="width:${percent}%"></div></div><b>${percent.toFixed(1)}%</b> <span class="stat-label">выполнено</span></div>`:"<div class='empty'>Создайте цель накопления</div>";
- let html=data.transactions.map(transactionHTML).join("")||"<div class='empty'>Операций пока нет</div>";
- document.getElementById("allTransactions").innerHTML=html;
- document.getElementById("recentTransactions").innerHTML=data.transactions.slice(0,4).map(transactionHTML).join("")||"<div class='empty'>Здесь появятся ваши операции</div>";
-}
-render();
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(err => console.log("SW:", err));
-  });
-}
+
+safeLoad();
+draw();
 </script>
 </body>
-</html>
+    </html>
