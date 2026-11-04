@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-bank-pwa-v1";
+const CACHE_NAME = "my-bank-pwa-v2";
 const APP_FILES = [
   "./",
   "./index.html",
