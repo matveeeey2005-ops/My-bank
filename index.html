@@ -4,374 +4,299 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f2f8f4">
-<title>Мой банк</title>
+<title>Мой банк 2.0</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f2f8f4;color:#20352b;font-family:Arial,sans-serif}
 .app{max-width:620px;margin:auto;padding:18px 15px 95px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
-.logo{font-size:22px;font-weight:900;color:#183b2d}
-.logo span{color:#20a66a}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:900;color:#183b2d}.logo span{color:#20a66a}
 .pill{background:#e1f4e9;color:#238354;padding:9px 12px;border-radius:20px;font-size:12px}
-h1{font-size:25px;margin:0 0 5px}
-.muted{color:#718278;font-size:13px}
+h1{font-size:25px;margin:0 0 5px}.muted{color:#718278;font-size:13px}
 .balance{margin-top:18px;padding:22px;border-radius:24px;background:linear-gradient(135deg,#174a36,#25875b);color:white}
 .amount{font-size:36px;font-weight:800;margin:8px 0 17px}
-.balance-row{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.balance-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;flex-wrap:wrap}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:17px 0 23px}
 .action{border:0;border-radius:18px;padding:17px 10px;background:white;text-align:left;cursor:pointer;color:#20352b}
 .action .symbol{font-size:25px;display:block;margin-bottom:9px}
-.action strong{display:block;font-size:15px}
-.action small{display:block;color:#718278;font-size:11px;margin-top:4px}
+.action strong{display:block;font-size:15px}.action small{display:block;color:#718278;font-size:11px;margin-top:4px}
 .section-title{font-size:18px;font-weight:800;margin:22px 2px 11px}
 .card{background:white;border-radius:19px;padding:16px;margin-bottom:11px}
 .goal-head,.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.goal-name{font-weight:800}
-.percent{font-weight:800;color:#20a66a}
+.goal-name{font-weight:800}.percent{font-weight:800;color:#20a66a}
 .track{height:10px;background:#edf3ef;border-radius:20px;margin:13px 0 8px;overflow:hidden}
 .fill{height:100%;background:#20a66a;border-radius:20px;width:0}
 .goal-foot{display:flex;justify-content:space-between;color:#718278;font-size:12px}
 .tx{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #e7efe9}
-.tx:last-child{border:0}
-.tx-icon{width:39px;height:39px;border-radius:13px;background:#f0f6f2;display:grid;place-items:center;font-size:19px}
-.tx-info{flex:1;min-width:0}
-.tx-title{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis}
-.tx-date{font-size:11px;color:#718278;margin-top:4px}
-.tx-amount{font-weight:800;white-space:nowrap}
-.positive{color:#15965b}.negative{color:#d65c55}
-.del{border:0;background:none;color:#a3afa8;font-size:19px;cursor:pointer}
+.tx:last-child{border:0}.tx-icon{width:39px;height:39px;border-radius:13px;background:#f0f6f2;display:grid;place-items:center;font-size:19px}
+.tx-info{flex:1;min-width:0}.tx-title{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.tx-date{font-size:11px;color:#718278;margin-top:4px}.tx-amount{font-weight:800;white-space:nowrap}
+.positive{color:#15965b}.negative{color:#d65c55}.del{border:0;background:none;color:#a3afa8;font-size:19px;cursor:pointer}
 .empty{text-align:center;padding:20px;color:#718278;font-size:13px}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(620px,100%);display:flex;justify-content:space-around;background:#ffffffed;border-top:1px solid #e7efe9;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:4}
 .nav button{border:0;background:none;color:#849188;font-size:11px;font-weight:700;cursor:pointer}
-.nav button span{display:block;font-size:20px;margin-bottom:3px}
-.nav button.active{color:#20a66a}
+.nav button span{display:block;font-size:20px;margin-bottom:3px}.nav button.active{color:#20a66a}
 .page{display:none}.page.active{display:block}
 .primary{width:100%;border:0;border-radius:13px;background:#20a66a;color:white;padding:14px;font-weight:800;font-size:15px;cursor:pointer}
+.secondary{width:100%;border:1px solid #dce8df;border-radius:13px;background:white;color:#20352b;padding:13px;font-weight:700;font-size:14px;cursor:pointer}
+.danger{color:#c84f49}
 label{display:block;font-weight:700;font-size:13px;margin:13px 0 6px}
-input{width:100%;padding:13px;border:1px solid #dce8df;border-radius:12px;background:#fbfdfb;font-size:16px;outline:none}
+input,select{width:100%;padding:13px;border:1px solid #dce8df;border-radius:12px;background:#fbfdfb;font-size:16px;outline:none;color:#20352b}
 .modal{display:none;position:fixed;inset:0;background:#10281d88;z-index:8;align-items:flex-end;justify-content:center;padding:10px}
-.modal.show{display:flex}
-.dialog{width:min(100%,500px);background:white;border-radius:23px;padding:21px;max-height:90vh;overflow:auto}
-.dialog-head{display:flex;justify-content:space-between;align-items:center}
-.dialog h2{margin:0;font-size:20px}
+.modal.show{display:flex}.dialog{width:min(100%,500px);background:white;border-radius:23px;padding:21px;max-height:90vh;overflow:auto}
+.dialog-head{display:flex;justify-content:space-between;align-items:center}.dialog h2{margin:0;font-size:20px}
 .close{border:0;border-radius:50%;width:34px;height:34px;background:#f0f5f1;font-size:20px;cursor:pointer}
 .note{font-size:12px;line-height:1.5;color:#718278;margin-top:14px}
+.member{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid #e7efe9}
+.avatar{width:42px;height:42px;border-radius:14px;background:#e9f5ed;display:grid;place-items:center;font-size:21px}
+.member-info{flex:1;min-width:0}.member-name{font-weight:800}.member-sub{font-size:12px;color:#718278;margin-top:4px}
+.tag{font-size:11px;background:#e1f4e9;color:#238354;padding:6px 9px;border-radius:20px;white-space:nowrap}
+.child-card{border:1px solid #e5eee7;border-radius:16px;padding:14px;margin:10px 0;background:#fff}
+.child-card.selected{border:2px solid #20a66a}
+.notice{padding:12px 13px;border-radius:13px;background:#fff7df;color:#765b1b;font-size:12px;line-height:1.5;margin:14px 0}
+.small-btn{border:0;background:#edf7f0;color:#218452;border-radius:10px;padding:9px 11px;font-weight:700;cursor:pointer}
+.account-choice{background:white;border:1px solid #e2ece5;border-radius:19px;padding:17px;margin:11px 0;display:flex;align-items:center;gap:13px;text-align:left;width:100%;color:#20352b}
+.account-choice:active{border-color:#20a66a;background:#f8fcf9}
+.choice-icon{width:48px;height:48px;border-radius:16px;background:#e8f5ec;display:grid;place-items:center;font-size:25px}
+.choice-copy{flex:1}.choice-copy b{display:block;font-size:16px}.choice-copy small{display:block;color:#718278;margin-top:5px;font-size:12px}
+.top-link{border:0;background:none;color:#218452;font-weight:700;padding:8px 0;cursor:pointer}
 @media(min-width:560px){.modal{align-items:center}.dialog{border-radius:23px}}
 </style>
 </head>
 <body>
-
 <div class="app">
-<header>
- <div class="logo">МОЙ <span>БАНК</span></div>
- <div class="pill">🐻 Мой денежный помощник</div>
-</header>
+<header><div class="logo">МОЙ <span>БАНК</span></div><div class="pill">🐻 Семейный денежный помощник</div></header>
 
-<section id="home" class="page active">
-<h1>Привет! 👋</h1>
-<div class="muted">Давай посмотрим, сколько у тебя денег</div>
-
-<div class="balance">
- <small>Всего у меня</small>
- <div class="amount" id="total">0 ₽</div>
- <div class="balance-row">
-  <span>💵 Свободно: <b id="free">0 ₽</b></span>
-  <span>🐷 В копилке: <b id="saved">0 ₽</b></span>
- </div>
-</div>
-
-<div class="actions">
- <button class="action" onclick="openForm('income')">
-  <span class="symbol">🎁</span>
-  <strong>Получить деньги</strong>
-  <small>От кого получил?</small>
- </button>
- <button class="action" onclick="openForm('expense')">
-  <span class="symbol">🛍️</span>
-  <strong>Потратить деньги</strong>
-  <small>На что потратил?</small>
- </button>
- <button class="action" onclick="openForm('save')">
-  <span class="symbol">🐷</span>
-  <strong>Отложить</strong>
-  <small>В свою копилку</small>
- </button>
- <button class="action" onclick="openForm('goal')">
-  <span class="symbol">🎯</span>
-  <strong>Моя цель</strong>
-  <small>На что коплю?</small>
- </button>
-</div>
-
-<div class="section-title">🎯 Моя большая мечта</div>
-<div class="card">
- <div class="goal-head">
-  <div class="goal-name" id="goalName">Пока нет цели</div>
-  <div class="percent" id="percent">0%</div>
- </div>
- <div class="track"><div class="fill" id="bar"></div></div>
- <div class="goal-foot">
-  <span id="goalSaved">Накоплено: 0 ₽</span>
-  <span id="goalTarget">Нужно: 0 ₽</span>
- </div>
-</div>
-
-<div class="section-title">📖 Последние операции</div>
-<div class="card" id="recent"></div>
+<section id="welcome" class="page active">
+ <div style="text-align:center;padding:35px 8px 18px"><div style="font-size:48px">🐻</div><h1>Мой банк 2.0</h1><div class="muted">Выберите, в какой кабинет хотите войти</div></div>
+ <button class="account-choice" onclick="chooseType('child')"><span class="choice-icon">🧒</span><span class="choice-copy"><b>Детский кабинет</b><small>Личный счёт, карманные деньги и накопления</small></span><b>›</b></button>
+ <button class="account-choice" onclick="chooseType('adult')"><span class="choice-icon">👤</span><span class="choice-copy"><b>Взрослый кабинет</b><small>Личный счёт и управление семейными счетами</small></span><b>›</b></button>
+ <div class="notice">Выбор кабинета пока демонстрационный: в этой версии нет настоящей авторизации. Для защиты ролей и входа с разных телефонов позже подключим Firebase.</div>
 </section>
 
-<section id="history" class="page">
-<h1>Мои операции 📖</h1>
-<div class="muted">Откуда пришли и куда ушли деньги</div>
-<div class="card" id="all" style="margin-top:18px"></div>
+<section id="chooser" class="page">
+ <button class="top-link" onclick="go('welcome')">← Назад к выбору кабинета</button>
+ <h1 id="chooserTitle">Выберите аккаунт</h1><div class="muted" id="chooserSubtitle">Кто входит в приложение?</div>
+ <div id="accountList"></div>
+ <button class="secondary" style="margin-top:10px" onclick="go('welcome')">Сменить тип кабинета</button>
 </section>
 
+<section id="home" class="page">
+ <button class="top-link" onclick="go('welcome')">⇄ Сменить аккаунт</button>
+ <h1 id="hello">Привет! 👋</h1><div class="muted" id="subtitle">Твой личный счёт</div>
+ <div id="accountView">
+  <div class="between"><div><b id="accountNameHeading">Мой счёт</b><div class="muted" id="accountCaption">Мои деньги</div></div><span class="tag" id="accountRoleTag">🐻 Ребёнок</span></div>
+  <div class="balance"><small>Всего у меня</small><div class="amount" id="total">0 ₽</div><div class="balance-row"><span>💵 Свободно: <b id="free">0 ₽</b></span><span>🐷 В копилке: <b id="saved">0 ₽</b></span></div></div>
+  <div class="actions">
+   <button class="action" onclick="openForm('income')"><span class="symbol">🎁</span><strong>Пополнить счёт</strong><small id="incomeHint">Записать поступление</small></button>
+   <button class="action" onclick="openForm('expense')"><span class="symbol">🛍️</span><strong>Потратить деньги</strong><small>На что потратил?</small></button>
+   <button class="action" onclick="openForm('save')"><span class="symbol">🐷</span><strong>Отложить</strong><small>В свои накопления</small></button>
+   <button class="action" onclick="openForm('goal')"><span class="symbol">🎯</span><strong>Моя цель</strong><small>На что коплю?</small></button>
+  </div>
+  <div class="section-title">🎯 Моя большая мечта</div>
+  <div class="card"><div class="goal-head"><div class="goal-name" id="goalName">Пока нет цели</div><div class="percent" id="percent">0%</div></div><div class="track"><div class="fill" id="bar"></div></div><div class="goal-foot"><span id="goalSaved">Накоплено: 0 ₽</span><span id="goalTarget">Нужно: 0 ₽</span></div></div>
+  <div class="section-title">📖 Последние операции</div><div class="card" id="recent"></div>
+ </div>
+ <div id="adultManagement" style="display:none">
+  <div class="section-title">👨‍👩‍👧‍👦 Детские счета</div><div id="childrenList"></div>
+  <div class="section-title">Управление выбранным детским счётом</div>
+  <div class="card"><div class="muted" id="selectedChildLabel">Выберите детский аккаунт</div>
+   <button class="action" style="width:100%;margin-top:12px" onclick="openAdultCredit('main')"><span class="symbol">💵</span><strong>Пополнить основной счёт</strong><small>Добавить свободные деньги ребёнку</small></button>
+   <button class="action" style="width:100%;margin-top:10px" onclick="openAdultCredit('saving')"><span class="symbol">🐷</span><strong>Пополнить накопления</strong><small>Добавить деньги в копилку</small></button>
+   <button class="action" style="width:100%;margin-top:10px" onclick="openAdultAdjust()"><span class="symbol">✏️</span><strong>Изменить баланс</strong><small>Корректировка с записью в истории</small></button>
+  </div>
+  <div class="section-title">Участники семьи</div><div class="card" id="membersList"></div>
+  <button class="primary" onclick="openMemberForm()">＋ Добавить участника</button>
+  <div class="notice"><b>Демонстрационный режим.</b> Данные пока хранятся только в этом браузере. Приглашения и синхронизация между телефонами не подключены. Не используй эту версию для настоящих банковских данных.</div>
+ </div>
+</section>
+
+<section id="history" class="page"><h1>Мои операции 📖</h1><div class="muted">История текущего аккаунта</div><div class="card" id="all" style="margin-top:18px"></div></section>
 <section id="settings" class="page">
-<h1>Настройки ⚙️</h1>
-<div class="muted">Начальная сумма денег</div>
-<div class="card" style="margin-top:18px">
- <label for="initial">Сколько денег у меня сейчас? (₽)</label>
- <input id="initial" type="number" min="0" step="0.01">
- <button class="primary" style="margin-top:14px" onclick="setBalance()">Сохранить сумму</button>
- <p class="note">Это приложение помогает вести учёт карманных денег. Оно не подключается к настоящему банку.</p>
-</div>
+ <h1>Настройки ⚙️</h1><div class="muted">Настройки текущего аккаунта</div>
+ <div class="card" style="margin-top:18px"><label for="initial">Свободный баланс (₽)</label><input id="initial" type="number" min="0" step="0.01"><button class="primary" style="margin-top:14px" onclick="setBalance()">Сохранить сумму</button>
+ <p class="note">Это приложение помогает вести учёт условных карманных денег. Оно не подключается к настоящему банку.</p></div>
+ <div class="card"><b>Перенос старых данных</b><p class="note">Старые детские данные сохраняются при обновлении. Существующие счета не удаляются.</p></div>
 </section>
 </div>
 
-<nav class="nav">
-<button class="active" data-page="home" onclick="go('home')"><span>🏠</span>Главная</button>
-<button data-page="history" onclick="go('history')"><span>📖</span>История</button>
-<button data-page="settings" onclick="go('settings')"><span>⚙️</span>Настройки</button>
-</nav>
+<nav class="nav" id="mainNav" style="display:none"><button class="active" data-page="home" onclick="go('home')"><span>🏠</span>Главная</button><button data-page="history" onclick="go('history')"><span>📖</span>История</button><button data-page="settings" onclick="go('settings')"><span>⚙️</span>Настройки</button></nav>
 
-<div class="modal" id="modal" onclick="if(event.target===this)closeForm()">
-<div class="dialog">
- <div class="dialog-head">
-  <h2 id="formTitle">Операция</h2>
-  <button class="close" onclick="closeForm()">×</button>
- </div>
- <div class="muted" id="formHint" style="margin-top:6px"></div>
- <div id="fields"></div>
- <button class="primary" id="submit" style="margin-top:18px">Готово</button>
-</div>
-</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeForm()"><div class="dialog">
+ <div class="dialog-head"><h2 id="formTitle">Операция</h2><button class="close" onclick="closeForm()">×</button></div>
+ <div class="muted" id="formHint" style="margin-top:6px"></div><div id="fields"></div><button class="primary" id="submit" style="margin-top:18px">Готово</button>
+</div></div>
 
 <script>
-const STORAGE_KEY='myBankDemo_v1';
-const blank={
- main:0,
- saving:0,
- goal:{name:'',target:0},
- transactions:[]
-};
-let bank;
-
-function safeLoad(){
+const OLD_KEY='myBankDemo_v1',NEW_KEY='myBankFamily_v2';
+let state,viewType='child',activeAccountId='',selectedChildId='',current='',adultMode='';
+function makeId(){return 'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)}
+function freshAccount(id,name,role){return {id,name,role,main:0,saving:0,goal:{name:'',target:0},transactions:[]}}
+function normalizeAccount(a,role){return {id:a.id||makeId(),name:a.name|| (role==='adult'?'Взрослый':'Ребёнок'),role,main:Number(a.main)||0,saving:Number(a.saving)||0,goal:a.goal&&typeof a.goal==='object'?{name:a.goal.name||'',target:Number(a.goal.target)||0}:{name:'',target:0},transactions:Array.isArray(a.transactions)?a.transactions:[]}}
+function load(){
  try{
-  const raw=localStorage.getItem(STORAGE_KEY);
-  const old=raw?JSON.parse(raw):null;
-  bank=old&&typeof old==='object'
-   ?{...blank,...old}
-   :JSON.parse(JSON.stringify(blank));
+  const raw=localStorage.getItem(NEW_KEY);
+  if(raw){
+   state=JSON.parse(raw);
+   state.children=(Array.isArray(state.children)?state.children:[]).map(x=>normalizeAccount(x,'child'));
+   state.adults=(Array.isArray(state.adults)?state.adults:[]).map(x=>normalizeAccount(x,'adult'));
+   state.members=Array.isArray(state.members)?state.members:[];
+   if(!state.children.length)state.children=[freshAccount(makeId(),'Ребёнок №1','child')];
+   if(!state.adults.length){
+    const oldAdults=state.members.filter(m=>m.role==='adult');
+    state.adults=oldAdults.map(m=>freshAccount(m.id||makeId(),m.name||'Взрослый','adult'));
+    if(!state.adults.length)state.adults=[freshAccount('owner','Папа','adult')];
+   }
+   state.members=syncMembers(state);
+  }else{
+   const old=JSON.parse(localStorage.getItem(OLD_KEY)||'null');
+   const first=freshAccount('child-1','Мой первый счёт','child');
+   if(old&&typeof old==='object'){
+    first.main=Number(old.main)||0;first.saving=Number(old.saving)||0;
+    first.goal=old.goal&&typeof old.goal==='object'?{name:old.goal.name||'',target:Number(old.goal.target)||0}:{name:'',target:0};
+    first.transactions=Array.isArray(old.transactions)?old.transactions:[];
+   }
+   state={familyName:'Моя семья',children:[first],adults:[freshAccount('owner','Папа','adult')],members:[]};
+   state.members=syncMembers(state);persist(false);
+  }
  }catch(e){
-  bank=JSON.parse(JSON.stringify(blank));
+  state={familyName:'Моя семья',children:[freshAccount('child-1','Ребёнок №1','child')],adults:[freshAccount('owner','Папа','adult')],members:[]};
+  state.members=syncMembers(state);
  }
- bank.main=Number(bank.main)||0;
- bank.saving=Number(bank.saving)||0;
- if(!bank.goal||typeof bank.goal!=='object')bank.goal={name:'',target:0};
- if(!Array.isArray(bank.transactions))bank.transactions=[];
+ selectedChildId=state.children[0].id;
 }
-
-function save(){
- try{
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(bank));
- }catch(e){
-  alert('Не удалось сохранить данные. Проверь настройки браузера.');
- }
- draw();
+function syncMembers(s){
+ const children=(s.children||[]).map(a=>({id:a.id,name:a.name,role:'child'}));
+ const adults=(s.adults||[]).map(a=>({id:a.id,name:a.name,role:'adult',isOwner:a.id==='owner'}));
+ return [...adults,...children];
 }
-
-function rub(n){
- return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2})
- .format(Number(n)||0)+' ₽';
+function persist(redraw=true){try{state.members=syncMembers(state);localStorage.setItem(NEW_KEY,JSON.stringify(state));if(redraw)draw()}catch(e){alert('Не удалось сохранить данные. Возможно, в браузере закончилось место.');}}
+function account(){const list=viewType==='adult'?state.adults:state.children;return list.find(a=>a.id===activeAccountId)||list[0]}
+function child(){return state.children.find(c=>c.id===selectedChildId)||state.children[0]}
+function rub(n){return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(Number(n)||0)+' ₽'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function chooseType(type){
+ viewType=type;
+ document.getElementById('chooserTitle').textContent=type==='adult'?'Взрослый кабинет':'Детский кабинет';
+ document.getElementById('chooserSubtitle').textContent=type==='adult'?'Выберите свой взрослый аккаунт':'Выберите свой детский аккаунт';
+ const list=type==='adult'?state.adults:state.children;
+ document.getElementById('accountList').innerHTML=list.map(a=>`<button class="account-choice" onclick="enterAccount('${a.id}')"><span class="choice-icon">${type==='adult'?'👤':'🧒'}</span><span class="choice-copy"><b>${esc(a.name)}</b><small>${type==='adult'?'Личный взрослый счёт':'Личный детский счёт'}</small></span><b>›</b></button>`).join('')||'<div class="empty">Аккаунтов пока нет</div>';
+ go('chooser');
 }
-
-function esc(s){
- return String(s).replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
-}
-
+function enterAccount(id){activeAccountId=id;go('home');draw()}
 function draw(){
- const target=Number(bank.goal.target)||0;
- const pct=target>0?Math.min(100,Math.round(bank.saving/target*100)):0;
-
- document.getElementById('total').textContent=rub(bank.main+bank.saving);
- document.getElementById('free').textContent=rub(bank.main);
- document.getElementById('saved').textContent=rub(bank.saving);
-
- document.getElementById('goalName').textContent=bank.goal.name||'Пока нет цели';
- document.getElementById('percent').textContent=pct+'%';
- document.getElementById('bar').style.width=pct+'%';
- document.getElementById('goalSaved').textContent='Накоплено: '+rub(bank.saving);
- document.getElementById('goalTarget').textContent='Нужно: '+rub(target);
-
- document.getElementById('initial').value=bank.main;
-
- const sorted=[...bank.transactions].sort((a,b)=>b.id-a.id);
- document.getElementById('recent').innerHTML=txList(sorted.slice(0,4),false);
+ const a=account();if(!a)return;
+ const isAdult=viewType==='adult',target=Number(a.goal.target)||0,pct=target>0?Math.min(100,Math.round(a.saving/target*100)):0;
+ document.getElementById('hello').textContent=(isAdult?'Здравствуйте, ':'Привет, ')+a.name+'! 👋';
+ document.getElementById('subtitle').textContent=isAdult?'Твой личный взрослый счёт':'Твой личный детский счёт';
+ document.getElementById('accountNameHeading').textContent=a.name;
+ document.getElementById('accountCaption').textContent=isAdult?'Мои личные деньги':'Мои карманные деньги';
+ document.getElementById('accountRoleTag').textContent=isAdult?'👤 Взрослый':'🐻 Ребёнок';
+ document.getElementById('incomeHint').textContent=isAdult?'Записать пополнение своего счёта':'От кого получил?';
+ document.getElementById('total').textContent=rub(a.main+a.saving);
+ document.getElementById('free').textContent=rub(a.main);document.getElementById('saved').textContent=rub(a.saving);
+ document.getElementById('goalName').textContent=a.goal.name||'Пока нет цели';document.getElementById('percent').textContent=pct+'%';
+ document.getElementById('bar').style.width=pct+'%';document.getElementById('goalSaved').textContent='Накоплено: '+rub(a.saving);
+ document.getElementById('goalTarget').textContent='Нужно: '+rub(target);document.getElementById('initial').value=a.main;
+ const sorted=[...a.transactions].sort((x,y)=>new Date(y.timestamp||0)-new Date(x.timestamp||0));
+ document.getElementById('recent').innerHTML=txList(sorted.slice(0,5),false);
  document.getElementById('all').innerHTML=txList(sorted,true);
+ document.getElementById('accountView').style.display='block';
+ document.getElementById('adultManagement').style.display=isAdult?'block':'none';
+ document.getElementById('childrenList').innerHTML=state.children.map(x=>`
+  <div class="child-card ${x.id===selectedChildId?'selected':''}">
+   <div class="between"><div><b>🧒 ${esc(x.name)}</b><div class="muted">Свободно: ${rub(x.main)} · Накопления: ${rub(x.saving)}</div></div>
+   <button class="small-btn" onclick="selectChild('${x.id}')">${x.id===selectedChildId?'Выбран':'Открыть'}</button></div>
+  </div>`).join('')||'<div class="empty">Детских счетов пока нет</div>';
+ document.getElementById('selectedChildLabel').textContent=state.children.length?'Выбран: '+child().name+' · Всего: '+rub(child().main+child().saving):'Сначала добавьте ребёнка';
+ document.getElementById('membersList').innerHTML=state.members.map(m=>`
+  <div class="member"><div class="avatar">${m.role==='child'?'🧒':'👤'}</div><div class="member-info"><div class="member-name">${esc(m.name)}</div><div class="member-sub">${m.role==='adult'?'Взрослый участник':'Детский аккаунт'}${m.isOwner?' · Главный администратор':''}</div></div><span class="tag">${m.isOwner?'Администратор':m.role==='adult'?'Взрослый':'Ребёнок'}</span></div>`).join('')||'<div class="empty">Участников пока нет</div>';
 }
-
 function txList(list,del){
  if(!list.length)return '<div class="empty">Пока операций нет.<br>Добавь первое поступление! 🌱</div>';
-
- return list.map(t=>`
- <div class="tx">
-  <div class="tx-icon">${t.type==='income'?'🎁':t.type==='expense'?'🛍️':'🐷'}</div>
-  <div class="tx-info">
-   <div class="tx-title">${esc(t.title)}</div>
-   <div class="tx-date">${esc(t.date||'')}</div>
-  </div>
-  <div class="tx-amount ${t.type==='income'?'positive':t.type==='expense'?'negative':''}">
-   ${t.type==='income'?'+':t.type==='expense'?'−':'↗'}${rub(t.amount)}
-  </div>
-  ${del?`<button class="del" onclick="removeTx('${t.id}')">×</button>`:''}
- </div>`).join('');
+ return list.map(t=>`<div class="tx"><div class="tx-icon">${t.type==='income'?'🎁':t.type==='expense'?'🛍️':t.type==='adult-main'?'💵':t.type==='adult-saving'?'🐷':t.type==='adjust'?'✏️':t.type==='save'?'🐷':'💳'}</div><div class="tx-info"><div class="tx-title">${esc(t.title)}</div><div class="tx-date">${esc(t.date||'')}${t.actor?' · '+esc(t.actor):''}</div></div><div class="tx-amount ${['income','adult-main','adult-saving'].includes(t.type)?'positive':t.type==='expense'?'negative':''}">${['income','adult-main','adult-saving'].includes(t.type)?'+':t.type==='expense'?'−':t.type==='adjust'?'↔':'↗'}${rub(t.amount)}</div>${del&&t.type!=='adjust'?`<button class="del" onclick="removeTx('${esc(t.id)}')">×</button>`:''}</div>`).join('');
 }
-
 function go(id){
  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.getElementById('mainNav').style.display=['home','history','settings'].includes(id)?'flex':'none';
  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
  window.scrollTo(0,0);
 }
-
-let current='';
-
+function selectChild(id){selectedChildId=id;draw()}
 function openForm(type){
- current=type;
- const titles={
-  income:'🎁 Получить деньги',
-  expense:'🛍️ Потратить деньги',
-  save:'🐷 Отложить в копилку',
-  goal:'🎯 Моя цель'
- };
- const hints={
-  income:'Запиши сумму и от кого ты её получил.',
-  expense:'Запиши сумму и на что или кому отдал деньги.',
-  save:'Переведи часть свободных денег в копилку.',
-  goal:'Напиши, на что хочешь накопить.'
- };
-
- document.getElementById('formTitle').textContent=titles[type];
- document.getElementById('formHint').textContent=hints[type];
-
- if(type==='goal'){
-  document.getElementById('fields').innerHTML=`
-   <label>Моя мечта</label>
-   <input id="fTitle" maxlength="45" placeholder="Например, велосипед" value="${esc(bank.goal.name||'')}">
-   <label>Сколько нужно (₽)</label>
-   <input id="fAmount" type="number" min="0.01" step="0.01" placeholder="Например, 5000" value="${bank.goal.target||''}">
-  `;
- }else{
-  const label=type==='income'?'От кого деньги?':type==='expense'?'На что или кому?':'Комментарий (необязательно)';
-  const placeholder=type==='income'?'Например, от мамы':type==='expense'?'Например, игрушка':'Например, на велосипед';
-
-  document.getElementById('fields').innerHTML=`
-   <label>${label}</label>
-   <input id="fTitle" maxlength="55" placeholder="${placeholder}">
-   <label>Сумма (₽)</label>
-   <input id="fAmount" type="number" min="0.01" step="0.01" placeholder="0">
-  `;
- }
-
- document.getElementById('submit').onclick=submitForm;
- document.getElementById('modal').classList.add('show');
+ current=type;adultMode='';
+ const a=account(),isAdult=viewType==='adult';
+ const titles={income:isAdult?'💵 Пополнить мой счёт':'🎁 Получить деньги',expense:'🛍️ Потратить деньги',save:'🐷 Отложить в накопления',goal:'🎯 Моя цель'};
+ const hints={income:isAdult?'Запиши сумму и источник пополнения своего счёта.':'Запиши сумму и от кого ты её получил.',expense:'Запиши сумму и на что или кому отдал деньги.',save:'Переведи часть свободных денег в накопления.',goal:'Напиши, на что хочешь накопить.'};
+ document.getElementById('formTitle').textContent=titles[type];document.getElementById('formHint').textContent=hints[type];
+ if(type==='goal')document.getElementById('fields').innerHTML=`<label>Моя цель</label><input id="fTitle" maxlength="45" placeholder="Например, велосипед" value="${esc(a.goal.name||'')}"><label>Сколько нужно (₽)</label><input id="fAmount" type="number" min="0.01" step="0.01" placeholder="Например, 5000" value="${a.goal.target||''}">`;
+ else{const label=type==='income'?'Источник пополнения':type==='expense'?'На что или кому?':'Комментарий (необязательно)';const placeholder=type==='income'?'Например, зарплата, подарок':type==='expense'?'Например, покупка':'Например, на отпуск';document.getElementById('fields').innerHTML=`<label>${label}</label><input id="fTitle" maxlength="55" placeholder="${placeholder}"><label>Сумма (₽)</label><input id="fAmount" type="number" min="0.01" step="0.01" placeholder="0">`;}
+ document.getElementById('submit').onclick=submitForm;document.getElementById('modal').classList.add('show');
 }
-
-function closeForm(){
- document.getElementById('modal').classList.remove('show');
-}
-
+function closeForm(){document.getElementById('modal').classList.remove('show')}
 function submitForm(){
- const title=document.getElementById('fTitle').value.trim();
- const amount=Number(document.getElementById('fAmount').value);
-
- if(current==='goal'){
-  if(!title||!Number.isFinite(amount)||amount<=0){
-   alert('Напиши цель и сумму больше нуля.');return;
-  }
-  bank.goal={name:title,target:amount};
-  save();closeForm();return;
- }
-
- if(!Number.isFinite(amount)||amount<=0){
-  alert('Введи сумму больше нуля.');return;
- }
-
- if(current!=='save'&&!title){
-  alert('Напиши, от кого деньги или на что потратил.');return;
- }
-
- if(current==='income'){
-  bank.main+=amount;
-  add('income','От: '+title,amount);
- }
-
- if(current==='expense'){
-  if(amount>bank.main){alert('Свободных денег пока не хватает.');return;}
-  bank.main-=amount;
-  add('expense',title,amount);
- }
-
- if(current==='save'){
-  if(amount>bank.main){alert('Свободных денег в кошельке не хватает.');return;}
-  bank.main-=amount;
-  bank.saving+=amount;
-  add('save',title||'Пополнение копилки',amount);
- }
-
- save();closeForm();
+ const a=account(),title=document.getElementById('fTitle').value.trim(),amount=Number(document.getElementById('fAmount').value),actor=a.name;
+ if(current==='goal'){if(!title||!Number.isFinite(amount)||amount<=0){alert('Напиши цель и сумму больше нуля.');return;}a.goal={name:title,target:amount};persist();closeForm();return;}
+ if(!Number.isFinite(amount)||amount<=0){alert('Введи сумму больше нуля.');return;}
+ if(current!=='save'&&!title){alert('Заполни описание операции.');return;}
+ if(current==='income'){a.main+=amount;add(a,'income',title,amount,actor);}
+ if(current==='expense'){if(amount>a.main){alert('Свободных денег пока не хватает.');return;}a.main-=amount;add(a,'expense',title,amount,actor);}
+ if(current==='save'){if(amount>a.main){alert('Свободных денег не хватает.');return;}a.main-=amount;a.saving+=amount;add(a,'save',title||'Перевод в накопления',amount,actor);}
+ persist();closeForm();
 }
-
-function add(type,title,amount){
- bank.transactions.push({
-  id:Date.now()+Math.random(),
-  type,title,amount,
-  date:new Date().toLocaleString('ru-RU')
- });
-}
-
+function add(a,type,title,amount,actor){const now=Date.now();a.transactions.push({id:makeId(),type,title,amount,date:new Date(now).toLocaleString('ru-RU'),timestamp:now,actor})}
 function removeTx(id){
- const t=bank.transactions.find(x=>String(x.id)===String(id));
- if(!t)return;
+ const a=account(),t=a.transactions.find(x=>String(x.id)===String(id));if(!t)return;
  if(!confirm('Удалить операцию и вернуть деньги на баланс?'))return;
-
- if(t.type==='income')bank.main-=Number(t.amount);
- if(t.type==='expense')bank.main+=Number(t.amount);
- if(t.type==='save'){
-  bank.main+=Number(t.amount);
-  bank.saving-=Number(t.amount);
- }
-
- bank.main=Math.max(0,bank.main);
- bank.saving=Math.max(0,bank.saving);
- bank.transactions=bank.transactions.filter(x=>String(x.id)!==String(id));
- save();
+ if(t.type==='income')a.main-=Number(t.amount);
+ if(t.type==='expense')a.main+=Number(t.amount);
+ if(t.type==='save'){a.main+=Number(t.amount);a.saving-=Number(t.amount);}
+ if(t.type==='adult-main')a.main-=Number(t.amount);
+ if(t.type==='adult-saving')a.saving-=Number(t.amount);
+ a.main=Math.max(0,a.main);a.saving=Math.max(0,a.saving);
+ a.transactions=a.transactions.filter(x=>String(x.id)!==String(id));persist();
 }
-
 function setBalance(){
- const n=Number(document.getElementById('initial').value);
- if(!Number.isFinite(n)||n<0){
-  alert('Введи корректную сумму.');return;
- }
- bank.main=n;
- save();
- alert('Баланс обновлён!');
+ const a=account(),n=Number(document.getElementById('initial').value);
+ if(!Number.isFinite(n)||n<0){alert('Введи корректную сумму.');return;}
+ const diff=n-a.main;a.main=n;add(a,'adjust','Корректировка свободного баланса',Math.abs(diff),a.name);persist();alert('Баланс обновлён!');
 }
-
-safeLoad();
-draw();
+function openAdultCredit(which){
+ adultMode=which;current='adult-credit';
+ document.getElementById('formTitle').textContent=which==='main'?'💵 Пополнить основной счёт ребёнка':'🐷 Пополнить накопления ребёнка';
+ document.getElementById('formHint').textContent='Счёт ребёнка: '+child().name;
+ document.getElementById('fields').innerHTML='<label>Комментарий</label><input id="fTitle" maxlength="55" placeholder="Например, карманные деньги"><label>Сумма (₽)</label><input id="fAmount" type="number" min="0.01" step="0.01" placeholder="0">';
+ document.getElementById('submit').onclick=submitAdult;document.getElementById('modal').classList.add('show');
+}
+function openAdultAdjust(){
+ current='adult-adjust';document.getElementById('formTitle').textContent='✏️ Изменить баланс ребёнка';
+ document.getElementById('formHint').textContent='Укажи новое значение свободного баланса';
+ document.getElementById('fields').innerHTML='<label>Новый свободный баланс (₽)</label><input id="fAmount" type="number" min="0" step="0.01"><label>Причина изменения</label><input id="fTitle" maxlength="55" placeholder="Например, исправление ошибки">';
+ document.getElementById('fAmount').value=child().main;document.getElementById('submit').onclick=submitAdult;document.getElementById('modal').classList.add('show');
+}
+function submitAdult(){
+ const c=child(),actor=account().name,title=document.getElementById('fTitle').value.trim(),amount=Number(document.getElementById('fAmount').value);
+ if(!Number.isFinite(amount)||amount<0||(current==='adult-credit'&&amount<=0)){alert('Введи корректную сумму.');return;}
+ if(current==='adult-credit'){if(adultMode==='main')c.main+=amount;else c.saving+=amount;add(c,adultMode==='main'?'adult-main':'adult-saving',title||'Пополнение взрослым',amount,actor);}
+ else{if(!title){alert('Укажи причину корректировки.');return;}const diff=amount-c.main;c.main=amount;c.transactions.push({id:makeId(),type:'adjust',title:'Изменение свободного баланса: '+title,amount:Math.abs(diff),date:new Date().toLocaleString('ru-RU'),timestamp:Date.now(),actor});}
+ persist();closeForm();
+}
+function openMemberForm(){
+ current='member';document.getElementById('formTitle').textContent='＋ Добавить участника';
+ document.getElementById('formHint').textContent='Создай локальный семейный аккаунт';
+ document.getElementById('fields').innerHTML='<label>Имя участника</label><input id="fName" maxlength="35" placeholder="Например, Мама"><label>Тип аккаунта</label><select id="fRole"><option value="adult">Взрослый</option><option value="child">Ребёнок</option></select>';
+ document.getElementById('submit').onclick=submitMember;document.getElementById('modal').classList.add('show');
+}
+function submitMember(){
+ const name=document.getElementById('fName').value.trim(),role=document.getElementById('fRole').value;
+ if(!name){alert('Введи имя участника.');return;}
+ const id=makeId();
+ if(role==='child'){state.children.push(freshAccount(id,name,'child'));selectedChildId=id;}
+ else state.adults.push(freshAccount(id,name,'adult'));
+ persist();closeForm();draw();
+}
+load();
+go('welcome');
 </script>
 </body>
-    </html>
+</html
